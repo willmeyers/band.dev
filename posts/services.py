@@ -10,12 +10,20 @@ from band_dev.markdown import markdown
 from authusers.models import AuthUser
 from blogs.models import Blog
 from posts.models import Post, PostUpload
-from posts.schemas import CreatePostRequestBody, UpdatePostRequestBody, AudioUploadRequestBody
+from posts.schemas import (
+    CreatePostRequestBody,
+    UpdatePostRequestBody,
+    AudioUploadRequestBody,
+)
 from posts.utils import generate_post_link_from_title
 
 
 @transaction.atomic
-def create_post(request_body: CreatePostRequestBody, request_files: list[AudioUploadRequestBody], is_draft: bool = False) -> Post:
+def create_post(
+    request_body: CreatePostRequestBody,
+    request_files: list[AudioUploadRequestBody],
+    is_draft: bool = False,
+) -> Post:
     document = markdown.convert(request_body.content)
     metadata = markdown.Meta
 
@@ -49,7 +57,12 @@ def create_post(request_body: CreatePostRequestBody, request_files: list[AudioUp
 
 
 @transaction.atomic
-def update_post(post: Post, request_body: UpdatePostRequestBody, request_files: list[AudioUploadRequestBody], is_draft: bool = False) -> Post:
+def update_post(
+    post: Post,
+    request_body: UpdatePostRequestBody,
+    request_files: list[AudioUploadRequestBody],
+    is_draft: bool = False,
+) -> Post:
     document = markdown.convert(request_body.content)
     metadata = markdown.Meta
 
@@ -78,15 +91,17 @@ def update_post(post: Post, request_body: UpdatePostRequestBody, request_files: 
     return post
 
 
-
 def create_upload_audio(post: Post, request_body: AudioUploadRequestBody) -> PostUpload:
     # TODO: ensure safe string building
-    file_name = default_storage.save(f"user_media/{request_body.user_id}/audio/{request_body.file_name}", ContentFile(request_body.file.read()))
+    file_name = default_storage.save(
+        f"user_media/{request_body.user_id}/audio/{request_body.file_name}",
+        ContentFile(request_body.file.read()),
+    )
     post_upload = PostUpload(
         post_id=post.id,
         user_id=request_body.user_id,
         file=file_name,
-        content_type=request_body.content_type
+        content_type=request_body.content_type,
     )
     post_upload.save()
 

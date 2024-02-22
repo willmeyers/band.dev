@@ -20,8 +20,12 @@ class Post(BaseModel):
     is_page = models.BooleanField(default=False)
     is_discoverable = models.BooleanField(default=True)
     is_draft = models.BooleanField(default=False)
-    user = models.ForeignKey("authusers.AuthUser", on_delete=models.CASCADE, related_name="posts")
-    blog = models.ForeignKey("blogs.Blog", on_delete=models.CASCADE, related_name="posts")
+    user = models.ForeignKey(
+        "authusers.AuthUser", on_delete=models.CASCADE, related_name="posts"
+    )
+    blog = models.ForeignKey(
+        "blogs.Blog", on_delete=models.CASCADE, related_name="posts"
+    )
 
     def get_content_metadata_yaml_str(self):
         markdown.convert(self.content)
@@ -52,13 +56,18 @@ class Post(BaseModel):
 
         return stripped_content
 
+
 class PostUpload(BaseModel):
     name = models.TextField(null=True)
     file = models.FileField()
     key = models.TextField(null=True)
     content_type = models.TextField(null=True)
-    user = models.ForeignKey("authusers.AuthUser", on_delete=models.CASCADE, related_name="uploads")
-    post = models.ForeignKey("posts.Post", on_delete=models.CASCADE, related_name="uploads")
+    user = models.ForeignKey(
+        "authusers.AuthUser", on_delete=models.CASCADE, related_name="uploads"
+    )
+    post = models.ForeignKey(
+        "posts.Post", on_delete=models.CASCADE, related_name="uploads"
+    )
 
     @cached_property
     def filename(self) -> str:
@@ -74,6 +83,10 @@ class PostUpload(BaseModel):
 
 
 class Kudo(BaseModel):
-    post = models.ForeignKey("posts.Post", on_delete=models.CASCADE, related_name="kudos")
-    user = models.ForeignKey("authusers.AuthUser", on_delete=models.SET_NULL, null=True, related_name="kudos")
+    post = models.ForeignKey(
+        "posts.Post", on_delete=models.CASCADE, related_name="kudos"
+    )
+    user = models.ForeignKey(
+        "authusers.AuthUser", on_delete=models.SET_NULL, null=True, related_name="kudos"
+    )
     ip_address = models.GenericIPAddressField()

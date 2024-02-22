@@ -4,8 +4,17 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
 from band_dev.utils import flatten_querydict
-from authusers.services import create_user, authenticate_user, get_user, update_user_settings
-from authusers.schemas import CreateUserRequestBody, AuthenticateUserRequestBody, SettingsRequestBody
+from authusers.services import (
+    create_user,
+    authenticate_user,
+    get_user,
+    update_user_settings,
+)
+from authusers.schemas import (
+    CreateUserRequestBody,
+    AuthenticateUserRequestBody,
+    SettingsRequestBody,
+)
 from blogs.schemas import UpdateBlogRequestBody
 from blogs.services import update_user_blog
 from posts.services import get_user_posts
@@ -61,7 +70,7 @@ def dashboard_view(request):
         context={
             "user": request.user,
             "blog": blog,
-        }
+        },
     )
 
 
@@ -73,7 +82,7 @@ def subscribers_dashboard_view(request):
         context={
             "user": request.user,
             "blog": request.user.blog,
-        }
+        },
     )
 
 
@@ -85,15 +94,15 @@ def posts_dashboard_view(request):
         context={
             "user": request.user,
             "blog": request.user.blog,
-            "posts": request.user.blog.posts.all()
-        }
+            "posts": request.user.blog.posts.all(),
+        },
     )
 
 
 @login_required
 def post_uploads_dashboard_view(request):
-    user = request.user,
-    blog = request.user.blog,
+    user = (request.user,)
+    blog = (request.user.blog,)
     posts = request.user.posts.all()
     post_uploads = request.user.uploads.all()
 
@@ -104,8 +113,8 @@ def post_uploads_dashboard_view(request):
             "user": user,
             "blog": blog,
             "posts": posts,
-            "post_uploads": post_uploads
-        }
+            "post_uploads": post_uploads,
+        },
     )
 
 
@@ -117,7 +126,7 @@ def theme_dashboard_view(request):
         context={
             "user": request.user,
             "blog": request.user.blog,
-        }
+        },
     )
 
 
@@ -137,5 +146,5 @@ def settings_dashboard_view(request):
         context={
             "user": user,
             "blog": user.blog,
-        }
+        },
     )

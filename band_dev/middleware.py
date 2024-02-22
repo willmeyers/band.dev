@@ -26,6 +26,7 @@ class CurrentBlogMiddleware:
     """
     Middleware that sets the `blog` attribute to a request object.
     """
+
     def __init__(self, get_response):
         self.get_response = get_response
 

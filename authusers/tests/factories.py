@@ -8,7 +8,7 @@ from blogs.tests.factories import BlogFactory
 class AuthUserFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(lambda _: faker.email())
     full_name = factory.LazyAttribute(lambda _: faker.name())
-    slug = factory.LazyAttribute(lambda obj:  AuthUser().generate_slug())
+    slug = factory.LazyAttribute(lambda obj: AuthUser().generate_slug())
 
     class Meta:
         model = AuthUser

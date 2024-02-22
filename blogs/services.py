@@ -59,7 +59,9 @@ def update_user_blog(blog: Blog, request_body: UpdateBlogRequestBody) -> Blog:
     blog.navbar = request_body.navbar
 
     if blog_metadata.band_domain:
-        blog.sites.filter(name__endswith="__internal").update(domain=blog_metadata.band_domain)
+        blog.sites.filter(name__endswith="__internal").update(
+            domain=blog_metadata.band_domain
+        )
 
     blog.save()
 

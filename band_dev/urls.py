@@ -33,12 +33,26 @@ authusers_urls = [
     path("login/", authusers_views.login_view, name="login"),
     path("signup/", authusers_views.signup_view, name="signup"),
     path("logout/", authusers_views.logout_view, name="logout"),
-    path("dashboard/subscribers/", authusers_views.subscribers_dashboard_view, name="subscribers_dashboard"),
-    path("dashboard/uploads/", authusers_views.post_uploads_dashboard_view, name="post_uploads_dashboard"),
-    path("dashboard/posts/", authusers_views.posts_dashboard_view, name="posts_dashboard"),
-    path("dashboard/theme/", authusers_views.theme_dashboard_view, name="theme_dashboard"),
+    path(
+        "dashboard/subscribers/",
+        authusers_views.subscribers_dashboard_view,
+        name="subscribers_dashboard",
+    ),
+    path(
+        "dashboard/uploads/",
+        authusers_views.post_uploads_dashboard_view,
+        name="post_uploads_dashboard",
+    ),
+    path(
+        "dashboard/posts/", authusers_views.posts_dashboard_view, name="posts_dashboard"
+    ),
+    path(
+        "dashboard/theme/", authusers_views.theme_dashboard_view, name="theme_dashboard"
+    ),
     path("dashboard/", authusers_views.dashboard_view, name="dashboard"),
-    path("settings/", authusers_views.settings_dashboard_view, name="settings_dashboard"),
+    path(
+        "settings/", authusers_views.settings_dashboard_view, name="settings_dashboard"
+    ),
     path("posts/<str:post_readable_id>/edit/", post_views.edit_view, name="edit_post"),
 ]
 
@@ -47,7 +61,11 @@ blog_urls = [
     path("posts/", blog_views.blog_list_posts_view, name="list"),
     path("uploads/", blog_views.blog_list_uploads_view, name="list_uploads"),
     path("tags/", blog_views.blog_list_tags_view, name="list_tags"),
-    path("tags/<str:tag_name>/", blog_views.blog_list_posts_with_tag_view, name="list_with_tag")
+    path(
+        "tags/<str:tag_name>/",
+        blog_views.blog_list_posts_with_tag_view,
+        name="list_with_tag",
+    ),
 ]
 
 urlpatterns = [

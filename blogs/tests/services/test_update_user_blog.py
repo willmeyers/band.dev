@@ -15,7 +15,7 @@ class UpdateBlogTests(TestCase):
     def test_update_blog(self):
         update_blog_request_body = UpdateBlogRequestBody(
             navbar="[Home](/) [Posts](/posts) Page[/page]",
-            content="---\ntitle: Hello World\nsubdomain: hello-world\ncustom_domain: example.com\nmeta_description: My blog\nmeta_image: https://example.com/image.jpeg\n---\n#Header\nHello world."
+            content="---\ntitle: Hello World\nsubdomain: hello-world\ncustom_domain: example.com\nmeta_description: My blog\nmeta_image: https://example.com/image.jpeg\n---\n#Header\nHello world.",
         )
 
         blog = update_user_blog(blog=self.blog, request_body=update_blog_request_body)
@@ -24,8 +24,7 @@ class UpdateBlogTests(TestCase):
 
     def test_update_blog_with_empty_content(self):
         update_blog_request_body = UpdateBlogRequestBody(
-            navbar="[Home](/) [Posts](/posts) Page[/page]",
-            content=""
+            navbar="[Home](/) [Posts](/posts) Page[/page]", content=""
         )
 
         blog = update_user_blog(blog=self.blog, request_body=update_blog_request_body)

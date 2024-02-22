@@ -22,9 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+env = environ.Env(DEBUG=(bool, False))
 
 environ.Env.read_env(BASE_DIR / ".env/.sample.env")
 
@@ -90,9 +88,7 @@ WSGI_APPLICATION = "band_dev.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": env.db()
-}
+DATABASES = {"default": env.db()}
 
 
 # Django storages
@@ -109,10 +105,9 @@ STORAGES = {
             "secret_key": env("S3_SECRET_KEY"),
         },
     },
-
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    }
+    },
 }
 
 

@@ -17,7 +17,7 @@ class CreatePostTests(TestCase):
         create_post_request_body = CreatePostRequestBody(
             user_id=self.user.id,
             blog_id=self.blog.id,
-            content="---\ntitle: Hello World\n---\n# Hello World"
+            content="---\ntitle: Hello World\n---\n# Hello World",
         )
 
         post = create_post(request_body=create_post_request_body, request_files=[])

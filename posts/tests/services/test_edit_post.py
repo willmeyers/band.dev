@@ -16,18 +16,19 @@ class CreatePostTests(TestCase):
             request_body=CreatePostRequestBody(
                 content="---\ntitle: Hello World\n---",
                 user_id=self.user.id,
-                blog_id=self.blog.id
+                blog_id=self.blog.id,
             ),
-            request_files=[]
+            request_files=[],
         )
 
     def test_update_post_without_files(self):
         update_post_request_body = UpdatePostRequestBody(
-            post_id=self.post.id,
-            content="---\ntitle: Hello World Updated\n---"
+            post_id=self.post.id, content="---\ntitle: Hello World Updated\n---"
         )
 
-        post = update_post(post=self.post, request_body=update_post_request_body, request_files=[])
+        post = update_post(
+            post=self.post, request_body=update_post_request_body, request_files=[]
+        )
 
         self.assertEqual(post.content, update_post_request_body.content)
         self.assertEqual(post.title, "Hello World Updated")

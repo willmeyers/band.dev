@@ -23,5 +23,7 @@ def require_request_blog():
                 response = HttpResponseNotFound(*args, **kwargs)
                 return response
             return func(request, *args, **kwargs)
+
         return inner
+
     return decorator

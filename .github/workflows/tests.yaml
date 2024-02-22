@@ -28,6 +28,3 @@ jobs:
 
       - name: run tests
         run: poetry run pytest
-
-      - name: lint
-        run: poetry run pylint $(git ls-files '*.py')

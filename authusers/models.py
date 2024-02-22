@@ -1,7 +1,11 @@
 from django.apps import apps
 from django.db import models
 from django.db.models import Count, Max
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseUserManager,
+)
 from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from django.utils.text import slugify

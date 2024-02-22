@@ -6,16 +6,21 @@ from pydantic import ValidationError
 
 from band_dev.utils import flatten_querydict
 from band_dev.decorators import require_request_blog
-from posts.schemas import CreatePostRequestBody, UpdatePostRequestBody, AudioUploadRequestBody
-from posts.services import create_post, update_post, get_post_by_id, get_blog_post_by_link
+from posts.schemas import (
+    CreatePostRequestBody,
+    UpdatePostRequestBody,
+    AudioUploadRequestBody,
+)
+from posts.services import (
+    create_post,
+    update_post,
+    get_post_by_id,
+    get_blog_post_by_link,
+)
 
 
 def trending_view(request):
-    return render(
-        request=request,
-        template_name="posts/trending.html",
-        context={}
-    )
+    return render(request=request, template_name="posts/trending.html", context={})
 
 
 @login_required
@@ -39,24 +44,28 @@ def create_view(request):
                 file_name=file.name,
                 content_type=file.content_type,
                 size=file.size,
-                file=file
+                file=file,
             )
 
             uploads.append(upload_audio_request)
 
-        post = create_post(request_body=create_post_request, request_files=uploads, is_draft=is_draft)
+        post = create_post(
+            request_body=create_post_request, request_files=uploads, is_draft=is_draft
+        )
 
         if is_draft:
-            return redirect(reverse("posts:edit", kwargs={"post_readable_id": post.readable_id}))
+            return redirect(
+                reverse("posts:edit", kwargs={"post_readable_id": post.readable_id})
+            )
 
-        return redirect(reverse("posts:detail", kwargs={"post_readable_id": post.readable_id}))
+        return redirect(
+            reverse("posts:detail", kwargs={"post_readable_id": post.readable_id})
+        )
 
     return render(
         request=request,
         template_name="posts/create.html",
-        context={
-            "initial_content_metadata": initial_content_metadata
-        }
+        context={"initial_content_metadata": initial_content_metadata},
     )
 
 
@@ -80,25 +89,31 @@ def edit_view(request, post_readable_id: str):
                 file_name=file.name,
                 content_type=file.content_type,
                 size=file.size,
-                file=file
+                file=file,
             )
 
             uploads.append(upload_audio_request)
 
-        post = update_post(post=post, request_body=update_post_request, request_files=uploads, is_draft=is_draft)
+        post = update_post(
+            post=post,
+            request_body=update_post_request,
+            request_files=uploads,
+            is_draft=is_draft,
+        )
 
         if is_draft:
-            return redirect(reverse("posts:edit", kwargs={"post_readable_id": post.readable_id}))
+            return redirect(
+                reverse("posts:edit", kwargs={"post_readable_id": post.readable_id})
+            )
 
-        return redirect(reverse("posts:detail", kwargs={"post_readable_id": post.readable_id}))
+        return redirect(
+            reverse("posts:detail", kwargs={"post_readable_id": post.readable_id})
+        )
 
     return render(
         request=request,
         template_name="posts/edit_post.html",
-        context={
-            "post": post,
-            "post_uploads": post_uploads
-        }
+        context={"post": post, "post_uploads": post_uploads},
     )
 
 
@@ -109,18 +124,12 @@ def detail_view(request, link: str):
     uploads = []
     for upload in audio_uploads:
         url = default_storage.url(upload.file.name)
-        uploads.append({
-            "id": upload.id,
-            "content_type": upload.content_type,
-            "url": url
-        })
+        uploads.append(
+            {"id": upload.id, "content_type": upload.content_type, "url": url}
+        )
 
     return render(
         request=request,
         template_name="posts/post_detail.html",
-        context={
-            "blog": post.blog,
-            "post": post,
-            "audio_uploads": uploads
-        }
+        context={"blog": post.blog, "post": post, "audio_uploads": uploads},
     )

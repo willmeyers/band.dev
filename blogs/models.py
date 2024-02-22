@@ -24,13 +24,14 @@ class Blog(BaseModel):
     is_blocked = models.BooleanField(default=False)
     is_discoverable = models.BooleanField(default=False)
 
-    user = models.OneToOneField("authusers.AuthUser", on_delete=models.CASCADE, related_name="blog")
+    user = models.OneToOneField(
+        "authusers.AuthUser", on_delete=models.CASCADE, related_name="blog"
+    )
     sites = models.ManyToManyField(Site)
 
     def create_internal_site(self, name):
         site = Site.objects.create(
-            name=name + "__internal",
-            domain=f"{name}.band.local"
+            name=name + "__internal", domain=f"{name}.band.local"
         )
 
         self.sites.add(site)

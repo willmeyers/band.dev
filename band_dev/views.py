@@ -9,24 +9,14 @@ def home_view(request):
         return render(
             request=request,
             template_name="blogs/blog_detail.html",
-            context={
-                "blog": request.blog
-            }
+            context={"blog": request.blog},
         )
 
-    return render(
-        request=request,
-        template_name="home.html",
-        context={}
-    )
+    return render(request=request, template_name="home.html", context={})
 
 
 def about_upgrading_view(request):
-    return render(
-        request=request,
-        template_name="about_upgrading.html",
-        context={}
-    )
+    return render(request=request, template_name="about_upgrading.html", context={})
 
 
 def discover_view(request):
@@ -37,9 +27,5 @@ def discover_view(request):
     return render(
         request=request,
         template_name="discover.html",
-        context={
-            "blogs": blogs,
-            "posts": posts,
-            "post_uploads": post_uploads
-        }
+        context={"blogs": blogs, "posts": posts, "post_uploads": post_uploads},
     )
