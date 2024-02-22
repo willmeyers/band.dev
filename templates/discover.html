@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% load static %} {% block head %}
+<script src="{% static 'js/audioplayer.js' %}"></script>
+{% endblock %} {% block body %}
+<main>
+  <header class="home-hero">
+    <!-- <img src="{% static 'img/note.png' %}" /> -->
+    <h1>Soundbroke</h1>
+  </header>
+  <h2>Discover</h2>
+  {% for upload in post_uploads %}
+  <div>
+    {% if upload.custom_music_player_styles %}
+    <audio-player host-style="{{ upload.custom_music_player_styles }}" trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
+    {% else %}
+    <audio-player trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
+    {% endif %}
+  </div>
+  {% endfor %}
+</main>
+{% include "_partials/navbar.html" %} {% endblock %}

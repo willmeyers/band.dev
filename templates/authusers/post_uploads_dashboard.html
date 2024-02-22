@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% load static %} {% block body %} {% include "_partials/navbar.html" %}
+<main>
+  {% include "authusers/_partials/dashboard_navbar.html" %}
+  <a href="{% url 'posts:create' %}">
+    <button>New Post</button>
+  </a>
+  <div>
+    <h2>Uploads</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Filename</th>
+        <th>Kind</th>
+        <th>Post</th>
+        <th></th>
+      </tr>
+      {% for upload in post_uploads %}
+      <tr>
+        <form method="post" action="/">
+          <td><input type="text" name="name" value="{{ upload.name }}" /></td>
+          <td>{{ upload.filename }}</td>
+          <td>{{ upload.content_type }}</td>
+          <td>{{ upload.post.title }}</td>
+          <td>
+            <button type="submit">update</button>
+            <a href="">
+              <button class="button-danger">delete</button>
+            </a>
+          </td>
+        </form>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<script src="{% static 'js/audioplayer.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/audioplayer.css' %}">
+<style>
+{{ blog.custom_styles }}
+</style>
+{% endblock %}
+
+{% block body %}
+<header>
+  <h1 class="blog-title">{{ blog.name }}</h1>
+  {% if blog.navbar %}
+  <nav class="blog-nav">
+    {{ blog.navbar }}
+  </nav>
+  {% endif %}
+</header>
+<main>
+    <h1>{{ post.title }}</h1>
+    {% for upload in audio_uploads %}
+      <audio-player trackname="test" filename="test" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"></audio-player>
+    {% endfor %}
+    {{ post.content }}
+</main>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/posts.css' %}" />
+{% endblock %} {% block body %} {% include "_partials/navbar.html" %}
+<main>
+  <h2>Edit Post</h2>
+  <div>
+    {% if post.is_published %}
+    <a href="">
+      <button class="button-warning">unpublish</button>
+    </a>
+    {% else %}
+    <a href="">
+      <button>publish</button>
+    </a>
+    {% endif %}
+    <a href="">
+      <button class="button-danger">delete</button>
+    </a>
+  </div>
+  <br />
+  {% include "posts/_forms/edit_post_form.html" with post=post %}
+</main>
+{% endblock %}

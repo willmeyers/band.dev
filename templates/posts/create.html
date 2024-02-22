@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/posts.css' %}" />
+{% endblock %} {% block body %} {% include "_partials/navbar.html" %}
+<main>
+  <div>
+    <h2>New Post</h2>
+    {% include "posts/_forms/create_post_form.html" with initial_content=initial_content_metadata %}
+  </div>
+</main>
+{% endblock %}

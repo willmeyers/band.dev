@@ -1,0 +1,91 @@
+<div class="editor-container">
+    {% if show_controls %}
+    <div class="editor-controls">
+        <div class="editor-buttons">
+            <button id="boldButton" type="button"><abbr title="bold">𝐁</abbr></button>
+            <button id="italicButton" type="button"><abbr title="italic">𝐼</abbr></button>
+            <button id="mathButton" type="button"><abbr title="math">𝚺</abbr></button>
+            <button id="codeblockButton" type="button"><abbr title="codeblock">codeblock</abbr></button>
+            <button id="imageButton" type="button"><abbr title="insert image">insert image</abbr></button>
+        </div>
+    </div>
+    {% endif %}
+    <div id="editor" contenteditable="true">
+        {{ initialValue }}
+    </div>
+    {% if show_controls %}
+    <details>
+        <summary>Formatting Help</summary>
+        <ul>
+            <li>bold: **this is bold**</li>
+            <li>italic: *this is italic</li>
+            <li>images: ~[this is an image](https://example.com). If more than four images are uploaded, they are turned into a grid</li>
+        </ul>
+    </details>
+    {% endif %}
+</div>
+<textarea name="content" id="textarea" hidden></textarea>
+<script defer>
+    document.getElementById('boldButton').addEventListener('click', function() {
+        wrapText('**');
+    });
+
+    document.getElementById('italicButton').addEventListener('click', function() {
+        wrapText('*');
+    });
+
+    document.getElementById('codeblockButton').addEventListener('click', function() {
+        wrapText('```');
+    });
+
+    document.getElementById('mathButton').addEventListener('click', function() {
+        wrapText('$$');
+    });
+
+    document.getElementById('imageButton').addEventListener('click', function() {
+        insertTextAtCursor(`![Image]()`);
+    });
+
+    function wrapText(wrapper) {
+        const selectedText = window.getSelection().toString();
+        if (selectedText) {
+            insertTextAtCursor(`${wrapper}${selectedText}${wrapper}`);
+        } else {
+            insertTextAtCursor(wrapper, true);
+        }
+    }
+
+    function insertTextAtCursor(text, placeCursorInMiddle = false) {
+        focusEditor()
+        const sel = window.getSelection();
+        if (sel.rangeCount) {
+            const range = sel.getRangeAt(0);
+            range.deleteContents();
+
+            if (placeCursorInMiddle) {
+                const part1 = document.createTextNode(text);
+                const part2 = document.createTextNode(text);
+                range.insertNode(part2);
+                range.insertNode(part1);
+                range.setStartAfter(part1);
+                range.setEndAfter(part1);
+            } else {
+                const textNode = document.createTextNode(text);
+                range.insertNode(textNode);
+            }
+
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+    }
+
+    function focusEditor() {
+        const editor = document.getElementById('editor');
+        editor.focus();
+    }
+
+    function copyContent() {
+        document.getElementById("textarea").value = document.getElementById("editor").innerText;
+        return true;
+    }
+</script>

@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% load static %} {% block body %}
+<main>
+  <header class="home-hero">
+    <!-- <img src="{% static 'img/note.png' %}" /> -->
+    <h1>band.dev</h1>
+  </header>
+  <div style="display: flex; gap: 24px">
+    <div>
+      <h3>A fast, minimalist blogging platform for independent musicians.</h3>
+      <ul>
+        <li>Create a personal blog for your music <em>free</em>.</li>
+        <li>Upload and share <em>your</em> music.</li>
+        <li>Discover new bands and music.</li>
+        <li>Custom themes and styles.</li>
+        <li>Atom/RSS feeds.</li>
+        <li>Custom domains, email lists, and <a href="{% url 'about_upgrading' %}">more available for upgraded accounts.</a></li>
+      </ul>
+    </div>
+    {% if not request.user.is_authenticated %}
+    <div style="flex: 1">
+      <h3>Signup for Free</h3>
+      {% include "authusers/_forms/signup_form.html" %}
+    </div>
+    {% endif %}
+  </div>
+</main>
+{% include "_partials/navbar.html" %} {% endblock %}

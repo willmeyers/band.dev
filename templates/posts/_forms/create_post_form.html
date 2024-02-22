@@ -1,0 +1,34 @@
+<form class="create-post-form" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <textarea name="content">{{ initial_content }}</textarea>
+  <details>
+    <summary>Post attributes</summary>
+    <pre>
+You can set these attributes above within the "---"s.
+---
+title: the title of this post (required)
+link: unique url path of this post (optional)
+meta_image: meta image of this post (optional)
+meta_description: meta description of this post (optional)
+tags: comma-seperated list of tags (optional)
+class_name: custom css class name for this post (optional)
+is_discoverable: allow this post and its uploads to be found in discover, true/false (optional)
+is_page: treat this post as a page (will not be shown in blog posts list), true/false (optional)
+---
+    </pre>
+  </details>
+  <div>
+    <label>Upload file(s)</label>
+    <input type="file" name="audio_files" multiple />
+    <details>
+      <summary>Upload help</summary>
+      <pre>
+You can update the name of your uploads after you've either saved this post as a draft or published it.
+      </pre>
+    </details>
+  </div>
+  <div>
+    <button type="submit" name="save_as_draft">save as draft</button>
+    <button type="submit" name="publish">publish</button>
+  </div>
+</form>

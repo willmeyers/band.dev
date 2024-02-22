@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+{% endblock %} {% block body %} {% include "_partials/navbar.html" %}
+<main>
+  {% include "authusers/_partials/dashboard_navbar.html" %}
+  <div>
+    <form method="post" class="blog-dashboard-form">
+      <div>
+        <a href="{{ blog.domain }}">
+          <button type="button">view site</button>
+        </a>
+        <button type="submit">publish site</button>
+      </div>
+      {% csrf_token %}
+      <div class="form-control">
+        <label for="navbar">Navbar</label>
+        <input type="text" id="navbar" name="navbar" value="{{ blog.navbar }}" />
+        <details>
+          <summary>Navbar help</summary>
+          <pre>
+Use space-seperated markdown links to create a navigation bar for your blog.
+i.e. [Home](/) [Posts](/posts) [Uploads](/uploads) [Spotify](https://...) [YouTube](https://...)
+          </pre>
+        </details>
+      </div>
+      <div class="form-control">
+        <textarea name="content">{{ blog.content }}</textarea>
+        <details>
+          <summary>Blog help</summary>
+          <pre>
+You can set these attributes above within the "---"s.
+---
+title: the title of your blog (required)
+subdomain: my-subdomain (optional)
+custom_domain: mycustomdomain.com (optional)
+meta_image: meta image of this post (optional)
+meta_description: meta description of this post (optional)
+is_discoverable: allow this blog to be discovered on the discover page, true/false (optional)
+---
+          </pre>
+        </details>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

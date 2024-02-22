@@ -1,0 +1,16 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    {% block document_title %}
+    <title>♫♩♬♪ band.dev</title>
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    {% block head %} {% endblock %}
+  </head>
+  <body>
+    {% block body %} {% endblock %} {% block scripts %}{% endblock%}
+  </body>
+</html>

@@ -1,0 +1,20 @@
+header h1 {
+  margin: 0;
+}
+
+.dashboard-nav {
+  display: flex;
+  gap: 8px;
+  padding: 16px 0;
+}
+
+.blog-dashboard-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.blog-dashboard-form .form-control {
+  display: flex;
+  flex-direction: column;
+}

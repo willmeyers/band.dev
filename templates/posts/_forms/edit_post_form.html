@@ -1,0 +1,54 @@
+<form class="create-post-form" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <textarea name="content">{{ post.content }}</textarea>
+  <details>
+    <summary>Post attributes</summary>
+    <pre>
+You can set these attributes above within the "---"s.
+---
+title: the title of this post. required.
+link: unique url path of this post. optional.
+published_date: datetime when this post was published (YYYY-MM-DD HH:MM:SS). optional.
+meta_image: meta image of this post. optional.
+meta_description: meta description of this post. optional.
+tags: comma-seperated list of tags. optional.
+class_name: custom css class name for this post. optional.
+is_discoverable: allow this post to be shown in discover. true/false. optional.
+is_page: treat this post as a page (will not be shown in blog posts list). true/false. optional.
+---
+    </pre>
+  </details>
+  {% if post_uploads %}
+  <div>
+    <h3>File Uploads</h3>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Filename</th>
+        <th>Kind</th>
+        <th></th>
+      </tr>
+      {% for upload in post_uploads %}
+      <tr>
+        <td><input type="text" /></td>
+        <td>{{ upload.filename }}</td>
+        <td>{{ upload.content_type }}</td>
+        <td>
+          <a href="">
+            <button class="button-danger">delete</button>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% endif %}
+  <div>
+    <label>Upload file(s)</label>
+    <input type="file" name="audio_files" multiple />
+  </div>
+  <div>
+    <button type="submit" name="save_as_draft">save as draft</button>
+    <button type="submit" name="publish">save</button>
+  </div>
+</form>

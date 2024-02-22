@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/editor.css' %}" />
+{% endblock %}
+
+{% block body %}
+{% include "_partials/navbar.html" %}
+<main>
+    {% include "authusers/_partials/dashboard_navbar.html" %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="emails">Emails</label>
+                <textarea id="emails" name="emails"></textarea>
+            </div>
+            <button type="submit">Publish</button>
+        </form>
+    </div>
+    <script>
+    </script>
+</main>
+{% endblock %}

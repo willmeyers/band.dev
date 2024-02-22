@@ -1,0 +1,19 @@
+.create-post-form {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+
+. create-post-form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-post-form details {
+  font-size: 0.8rem;
+}
+
+.create-post-form table {
+  width: 100%;
+  text-align: left;
+}

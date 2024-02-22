@@ -1,0 +1,12 @@
+<header>
+  <h1>Dashboard</h1>
+</header>
+<nav class="dashboard-nav">
+  <a href="{% url 'authusers:dashboard' %}">Home</a>
+  <a href="{% url 'authusers:posts_dashboard' %}">Posts</a>
+  <a href="{% url 'authusers:post_uploads_dashboard' %}">Uploads</a>
+  <a href="">Merch</a>
+  <a href="{% url 'authusers:theme_dashboard' %}">Theme</a>
+  <a href="{% url 'authusers:subscribers_dashboard' %}">Subscribers</a>
+  <a href="{% url 'authusers:settings_dashboard' %}">Settings</a>
+</nav>

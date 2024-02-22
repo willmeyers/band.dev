@@ -1,0 +1,28 @@
+Currently In Progress:
+- [ ] email verification on user signup
+- [ ] custom styles for blogs and audio player
+- [ ] custom tags for inserting posts and audio uploads into blog content and or blog posts
+
+Completed:
+- [x] user signups and blog creation
+- [x] update navbar and content
+- [x] create blog posts
+- [x] upload audio files
+- [x] configurable audio player (with noscript fallback)
+- [x] markdown (with metadata) parser for blog and posts
+- [x] basic discovery page
+- [x] subdomain lookups and routing
+
+Up Next:
+- [ ] system admin and moderation tools for staff
+- [ ] upvotes on blog posts
+- [ ] simple analytics for blog views, blog post views, and audio file plays
+- [ ] custom domains and verification (cloudflare worker can act as a cheap proxy)
+- [ ] email lists and RSS/Atom feeds for blogs
+- [ ] discovery ranking algorithm
+- [ ] upgraded or premium accounts
+- [ ] uniform design and product branding
+
+Down the Line:
+- [ ] band shops (some sort of integration with either stripe or shopify)
+- [ ] merch discovery

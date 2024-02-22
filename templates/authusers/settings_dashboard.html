@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+{% include "_partials/navbar.html" %}
+<main>
+    {% include "authusers/_partials/dashboard_navbar.html" %}
+    <div>
+        <h2>Settings</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <div>
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" value="{{ user.full_name }}" />
+                </div>
+                <div>
+                    <label>Open daily new post
+                        <input type="checkbox" name="open_daily_post" {% if user.open_daily_post %}checked{% endif %} />
+                    </label>
+                    <small>Automatically open to new daily post page on login</small>
+                </div>
+                <div>
+                    <label>Allow direct replies to my posts
+                        <input type="checkbox" name="allow_direct_replies" {% if user.allow_direct_replies %}checked{% endif %} />
+                    </label>
+                </div>
+                <div>
+                    <label>Allow people to subscribe to my notebook via Atom/RSS or by email
+                        <input type="checkbox" name="allow_subscriptions" {% if user.allow_subscriptions %}checked{% endif %} />
+                    </label>
+                    <small>People will get notified when you publish a new post via Atom/RSS or email</small>
+                </div>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+        <h3>Advanced</h3>
+        <ul>
+            <li><a href="">Change Email</a></li>
+            <li><a href="">Change Password</a></li>
+            <li><a href="">Export Data</a></li>
+            <li><a href="">Delete Account</a></li>
+        </ul>
+    </div>
+</main>
+{% endblock %}

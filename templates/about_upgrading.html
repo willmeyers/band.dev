@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+{% include "_partials/navbar.html" %}
+<main>
+  <header class="home-hero">
+    <img src="{% static 'img/note.png' %}" />
+    <h1>Ennui</h1>
+  </header>
+  <h2>Upgrade your Account? Why???</h2>
+  <div style="display: flex; gap: 16px; place-items: center;">
+    <div>
+      <h3>What's Included:</h3>
+      <ul>
+        <li>Custom domain</li>
+        <li>Email list</li>
+        <li>More than 3 uploads to a single post</li>
+        <li>FLAC and other higher quality formats</li>
+        <li>Upload longer than 8 minutes</li>
+        <li>Supporter badge :)</li>
+      </ul>
+    </div>
+  </div>
+</main>
+{% endblock %}
