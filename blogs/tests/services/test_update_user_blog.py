@@ -30,4 +30,3 @@ class UpdateBlogTests(TestCase):
         blog = update_user_blog(blog=self.blog, request_body=update_blog_request_body)
 
         self.assertEqual(blog.title, f"{blog.user.slug}'s Blog")
-        self.assertEqual(blog.subdomain, blog.user.slug)

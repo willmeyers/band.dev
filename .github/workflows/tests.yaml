@@ -33,4 +33,4 @@ jobs:
           poetry install --with dev
 
       - name: run tests
-        run: poetry run pytest
+        run: poetry run python manage.py test

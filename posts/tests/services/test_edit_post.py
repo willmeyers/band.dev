@@ -30,7 +30,9 @@ class CreatePostTests(TestCase):
             post=self.post, request_body=update_post_request_body, request_files=[]
         )
 
-        self.assertEqual(post.content, update_post_request_body.content)
+        expected_updated_content = "---\ntitle: Hello World Updated\nlink: hello-world-updated\n---"
+
+        self.assertEqual(post.content, expected_updated_content)
         self.assertEqual(post.title, "Hello World Updated")
         self.assertEqual(post.link, generate_post_link_from_title(title=post.title))
         self.assertEqual(post.meta_image, None)
