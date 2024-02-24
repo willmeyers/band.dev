@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block body %}
 <main>
+  {% include "_partials/navbar.html" %}
   <header class="home-hero">
     <!-- <img src="{% static 'img/note.png' %}" /> -->
     <h1>band.dev</h1>
@@ -24,4 +25,4 @@
     {% endif %}
   </div>
 </main>
-{% include "_partials/navbar.html" %} {% endblock %}
+{% endblock %}

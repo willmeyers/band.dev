@@ -15,7 +15,7 @@
   <ul class="post-list">
     {% for post in posts %}
     <li class="post-item">
-      <a href="{{ blog.domain }}/{{ post.link }}">{{ post.title }}</a>
+      <a href="{{ post.link }}">{{ post.title }}</a>
     </li>
     {% endfor %}
   </ul>

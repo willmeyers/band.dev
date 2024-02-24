@@ -3,7 +3,7 @@
 {% endblock %} {% block body %} {% include "_partials/navbar.html" %}
 <main>
   {% include "authusers/_partials/dashboard_navbar.html" %}
-  <a href="{% url 'posts:create' %}">
+  <a href="{% url 'authusers:create_post' %}">
     <button>New Post</button>
   </a>
   <div>
@@ -13,7 +13,7 @@
         <th>Title</th>
         <th>Created</th>
         <th>Editted</th>
-        <th>Kudos</th>
+        <th>Published?</th>
         <th>Views</th>
         <th></th>
       </thead>
@@ -23,13 +23,13 @@
           <td>{{ post.title }}</td>
           <td>{{ post.created_at }}</td>
           <td>{{ post.updated_at }}</td>
-          <td></td>
+          <td>{% if post.is_draft %}No{% else %}Yes{% endif %}</td>
           <td></td>
           <td>
-            <a href="{% url 'posts:edit' post_readable_id=post.readable_id %}">
+            <a href="{% url 'authusers:edit_post' post_readable_id=post.readable_id %}">
               <button>edit</button>
             </a>
-            <a href="{% url 'posts:detail' post_readable_id=post.readable_id %}">
+            <a href="{% url 'blogs:view_post' link=post.link %}">
               <button>view</button>
             </a>
           </td>

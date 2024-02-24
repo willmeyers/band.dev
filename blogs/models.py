@@ -39,9 +39,7 @@ class Blog(BaseModel):
         if self.title:
             metdata["title"] = self.title
 
-        internal_domain = self.sites.filter(name__endswith="__internal").first()
-        if internal_domain:
-            metdata["band_domain"] = internal_domain.domain
+        metdata["band_domain"] = self.domain
 
         metadata_yaml_str = "---\n"
         for key, value in metdata.items():

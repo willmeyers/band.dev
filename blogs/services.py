@@ -47,14 +47,10 @@ def update_user_blog(blog: Blog, request_body: UpdateBlogRequestBody) -> Blog:
     # There seems to be an odd issue when accessing markdown.Meta...
     # The previous state is somehow preserved in testcases.
     # So, we look at the document to determine if metadata is missing
-    if not document:
-        metadata = get_default_blog_metadata(blog=blog)
+    # if not document:
+    #     metadata = get_default_blog_metadata(blog=blog)
 
     blog_metadata = BlogMarkdownMetadata(**metadata)
-
-    # TODO (willmeyers): handle these attribs
-    # blog.subdomain = blog_metadata.subdomain
-    # blog.custom_domain = blog_metadata.custom_domain
 
     blog.title = blog_metadata.title
     blog.meta_image = blog_metadata.meta_image
@@ -69,6 +65,11 @@ def update_user_blog(blog: Blog, request_body: UpdateBlogRequestBody) -> Blog:
         blog.sites.filter(name__endswith="__internal").update(
             domain=blog_metadata.band_domain
         )
+
+    blog_metadata_yaml_str = blog.get_content_metadata_yaml_str()
+    blog_stripped_content = blog.get_stripped_content()
+
+    blog.content = blog_metadata_yaml_str + blog_stripped_content
 
     blog.save()
 

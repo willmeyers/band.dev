@@ -6,7 +6,7 @@
   <div>
     <form method="post" class="blog-dashboard-form">
       <div>
-        <a href="{{ blog.domain }}">
+        <a href="{{ blog.href }}">
           <button type="button">view site</button>
         </a>
         <button type="submit">publish site</button>
@@ -14,7 +14,7 @@
       {% csrf_token %}
       <div class="form-control">
         <label for="navbar">Navbar</label>
-        <input type="text" id="navbar" name="navbar" value="{{ blog.navbar }}" />
+        <input type="text" id="navbar" name="navbar" value="{% if blog.navbar %}{{ blog.navbar }}{% endif %}" />
         <details>
           <summary>Navbar help</summary>
           <pre>
@@ -31,10 +31,11 @@ i.e. [Home](/) [Posts](/posts) [Uploads](/uploads) [Spotify](https://...) [YouTu
 You can set these attributes above within the "---"s.
 ---
 title: the title of your blog (required)
-subdomain: my-subdomain (optional)
+band_domain: my-subdomain.band.dev (optional)
 custom_domain: mycustomdomain.com (optional)
 meta_image: meta image of this post (optional)
 meta_description: meta description of this post (optional)
+lang: spoken language of your site (optional)
 is_discoverable: allow this blog to be discovered on the discover page, true/false (optional)
 ---
           </pre>
