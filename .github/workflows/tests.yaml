@@ -19,6 +19,7 @@ jobs:
       DATABASE_URL: sqlite:////tmp/db.sqlite3
       CORS_ORIGIN_WHITELIST: "http://localhost,http://127.0.0.1"
       CSRF_TRUSTED_ORIGINS: "http://localhost"
+      SITE_URL: "localhost"
       S3_BUCKET_NAME: "xxx"
       S3_REGION: "us-weast"
       S3_ENDPOINT_URL: "https://s3.xxx.com"
