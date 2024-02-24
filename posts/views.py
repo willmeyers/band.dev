@@ -55,12 +55,12 @@ def create_view(request):
 
         if is_draft:
             return redirect(
-                reverse("authusers:edit_post", kwargs={"post_readable_id": post.readable_id})
+                reverse(
+                    "authusers:edit_post", kwargs={"post_readable_id": post.readable_id}
+                )
             )
 
-        return redirect(
-            reverse("blogs:view_post", kwargs={"link": post.link})
-        )
+        return redirect(reverse("blogs:view_post", kwargs={"link": post.link}))
 
     return render(
         request=request,

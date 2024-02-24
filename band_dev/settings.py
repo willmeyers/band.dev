@@ -40,10 +40,7 @@ SITE_URL = env("SITE_URL")
 SITE_URL_USE_SSL = not DEBUG
 
 
-ALLOWED_HOSTS = [
-    SITE_URL,
-    f".{SITE_URL}"
-]
+ALLOWED_HOSTS = [SITE_URL, f".{SITE_URL}"]
 
 
 # Application definition
