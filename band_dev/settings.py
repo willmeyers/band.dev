@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(DEBUG=(bool, False))
 
-environ.Env.read_env(BASE_DIR / ".env/.sample.env")
+environ.Env.read_env(BASE_DIR / ".env/.development.env")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
@@ -32,7 +32,17 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+
+# Sites specific settings
+#
+SITE_URL = env("SITE_URL")
+
+SITE_URL_USE_SSL = DEBUG
+
+
+ALLOWED_HOSTS = [
+    SITE_URL,
+]
 
 
 # Application definition

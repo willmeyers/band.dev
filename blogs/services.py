@@ -21,6 +21,13 @@ def create_user_blog(user: AuthUser) -> Blog:
 
     blog.create_internal_site(name=user.slug)
 
+    blog_metadata_yaml_str = blog.get_content_metadata_yaml_str()
+    blog_stripped_content = blog.get_stripped_content()
+
+    blog.content = blog_metadata_yaml_str + blog_stripped_content
+
+    blog.save()
+
     return blog
 
 

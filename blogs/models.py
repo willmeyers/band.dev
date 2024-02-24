@@ -1,4 +1,7 @@
+import re
+
 from django.db import models
+from django.conf import settings
 from django.contrib.sites.models import Site
 from django.utils.functional import cached_property
 
@@ -29,22 +32,39 @@ class Blog(BaseModel):
     )
     sites = models.ManyToManyField(Site)
 
+    def get_content_metadata_yaml_str(self) -> str:
+        markdown.convert(self.content)
+        metdata = markdown.Meta
+
+        if self.title:
+            metdata["title"] = self.title
+
+        internal_domain = self.sites.filter(name__endswith="__internal").first()
+        if internal_domain:
+            metdata["band_domain"] = internal_domain.domain
+
+        metadata_yaml_str = "---\n"
+        for key, value in metdata.items():
+            metadata_yaml_str += f"{key}: {value}\n"
+        metadata_yaml_str += "---"
+
+        return metadata_yaml_str
+
+    def get_stripped_content(self) -> str:
+        stripped_content = re.sub(r"^---(.*?)---", "", self.content, flags=re.DOTALL)
+        stripped_content = stripped_content.strip()
+
+        return stripped_content
+
     def create_internal_site(self, name):
         site = Site.objects.create(
-            name=name + "__internal", domain=f"{name}.band.local"
+            name=name + "__internal", domain=f"{name}.{settings.SITE_URL}"
         )
 
         self.sites.add(site)
 
     @cached_property
-    def navbar_html(self):
-        navbar_document = markdown.convert(self.navbar)
-
-        return navbar_document
-
-    @cached_property
     def domain(self) -> str:
-        scheme = "http"
         blog_sites = self.sites.values("name", "domain")
 
         subdomain = None
@@ -58,4 +78,10 @@ class Blog(BaseModel):
 
         domain = custom_domain if custom_domain else subdomain
 
-        return f"{scheme}://{domain}:8000"
+        return domain
+
+    @cached_property
+    def href(self) -> str:
+        scheme = "https" if settings.SITE_URL_USE_SSL else "http"
+
+        return f"{scheme}://{self.domain}"

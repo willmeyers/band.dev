@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from authusers.tests.factories import AuthUserFactory
+from authusers.tests.factories import create_fake_user
 from blogs.services import create_user_blog
 from posts.schemas import CreatePostRequestBody, UpdatePostRequestBody
 from posts.models import Post
@@ -10,7 +10,7 @@ from posts.utils import generate_post_link_from_title
 
 class CreatePostTests(TestCase):
     def setUp(self) -> None:
-        self.user = AuthUserFactory()
+        self.user = create_fake_user()
         self.blog = create_user_blog(user=self.user)
         self.post = create_post(
             request_body=CreatePostRequestBody(

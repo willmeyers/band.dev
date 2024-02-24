@@ -1,15 +1,13 @@
 from django.test import TestCase
 
-from authusers.tests.factories import AuthUserFactory
+from authusers.tests.factories import create_fake_user
 from blogs.schemas import CreateBlogRequestBody, UpdateBlogRequestBody
 from blogs.services import create_user_blog, update_user_blog
 
 
 class UpdateBlogTests(TestCase):
     def setUp(self) -> None:
-        self.user = AuthUserFactory()
-        self.user.save()
-
+        self.user = create_fake_user()
         self.blog = create_user_blog(user=self.user)
 
     def test_update_blog(self):

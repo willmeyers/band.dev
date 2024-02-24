@@ -5,10 +5,12 @@ from authusers.models import AuthUser
 from blogs.tests.factories import BlogFactory
 
 
-class AuthUserFactory(factory.django.DjangoModelFactory):
-    email = factory.LazyAttribute(lambda _: faker.email())
-    full_name = factory.LazyAttribute(lambda _: faker.name())
-    slug = factory.LazyAttribute(lambda obj: AuthUser().generate_slug())
+def create_fake_user(**kwargs):
+    user = AuthUser.objects.create_user(
+        email=faker.email(),
+        full_name=faker.name(),
+        password=faker.password(),
+        **kwargs
+    )
 
-    class Meta:
-        model = AuthUser
+    return user
