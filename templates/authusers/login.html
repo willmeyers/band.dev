@@ -1,9 +1,8 @@
-{% extends "base.html" %}
-
-{% block body %}
-    {% include "_partials/navbar.html" %}
-    <main>
-        <h1>Login</h1>
-        {% include "authusers/_forms/login_form.html" %}
-    </main>
+{% extends "base.html" %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+{% endblock %} {% block body %} {% include "_partials/navbar.html" %}
+<main>
+  <h1>Login</h1>
+  {% include "authusers/_forms/login_form.html" %}
+</main>
 {% endblock %}
