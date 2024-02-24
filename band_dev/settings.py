@@ -37,11 +37,12 @@ DEBUG = env("DEBUG")
 #
 SITE_URL = env("SITE_URL")
 
-SITE_URL_USE_SSL = DEBUG
+SITE_URL_USE_SSL = not DEBUG
 
 
 ALLOWED_HOSTS = [
     SITE_URL,
+    f".{SITE_URL}"
 ]
 
 
@@ -168,3 +169,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Misc. authentication related settings
 #
 AUTH_USER_MODEL = "authusers.AuthUser"
+
+SESSION_COOKIE_DOMAIN = f".{SITE_URL}"
