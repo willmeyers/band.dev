@@ -30,7 +30,9 @@ class CreatePostTests(TestCase):
             post=self.post, request_body=update_post_request_body, request_files=[]
         )
 
-        expected_updated_content = "---\ntitle: Hello World Updated\nlink: hello-world-updated\n---"
+        expected_updated_content = (
+            "---\ntitle: Hello World Updated\nlink: hello-world-updated\n---"
+        )
 
         self.assertEqual(post.content, expected_updated_content)
         self.assertEqual(post.title, "Hello World Updated")
