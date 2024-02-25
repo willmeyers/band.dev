@@ -1,9 +1,9 @@
 Currently In Progress:
-- [ ] email verification on user signup
 - [ ] custom styles for blogs and audio player
 - [ ] custom tags for inserting posts and audio uploads into blog content and or blog posts
 
 Completed:
+- [x] email verification on user signup
 - [x] user signups and blog creation
 - [x] update navbar and content
 - [x] create blog posts
