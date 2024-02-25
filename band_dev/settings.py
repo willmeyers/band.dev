@@ -35,12 +35,14 @@ DEBUG = env("DEBUG")
 
 # Sites specific settings
 #
-SITE_URL = env("SITE_URL")
+SITE_DOMAIN = env("SITE_DOMAIN")
 
 SITE_URL_USE_SSL = not DEBUG
 
+SITE_URL = f"https://{SITE_DOMAIN}" if SITE_URL_USE_SSL else f"http://{SITE_DOMAIN}"
 
-ALLOWED_HOSTS = [SITE_URL, f".{SITE_URL}"]
+
+ALLOWED_HOSTS = [SITE_DOMAIN, f".{SITE_DOMAIN}"]
 
 
 # Application definition
@@ -168,4 +170,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #
 AUTH_USER_MODEL = "authusers.AuthUser"
 
-SESSION_COOKIE_DOMAIN = f".{SITE_URL}"
+SESSION_COOKIE_DOMAIN = f".{SITE_DOMAIN}"
+
+
+# Email related settings
+#
+
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "dev_emails"

@@ -19,12 +19,13 @@ jobs:
       DATABASE_URL: sqlite:////tmp/db.sqlite3
       CORS_ORIGIN_WHITELIST: "http://localhost,http://127.0.0.1"
       CSRF_TRUSTED_ORIGINS: "http://localhost"
-      SITE_URL: "localhost"
+      SITE_DOMAIN: "localhost"
       S3_BUCKET_NAME: "xxx"
       S3_REGION: "us-weast"
       S3_ENDPOINT_URL: "https://s3.xxx.com"
       S3_ACCESS_KEY: "xxx"
       S3_SECRET_KEY: "xxx"
+      DEFAULT_FROM_EMAIL: "test@localhost"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3

@@ -28,6 +28,7 @@ class EmailTemplate:
         template_str = render_to_string(
             self.base_template_name,
             context={
+                "site_url": settings.SITE_URL,
                 "title": self.title,
                 "body": body_template_str,
                 **context

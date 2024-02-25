@@ -56,7 +56,7 @@ class Blog(BaseModel):
 
     def create_internal_site(self, name):
         site = Site.objects.create(
-            name=name + "__internal", domain=f"{name}.{settings.SITE_URL}"
+            name=name + "__internal", domain=f"{name}.{settings.SITE_DOMAIN}"
         )
 
         self.sites.add(site)

@@ -18,7 +18,7 @@ class CreateUserBlogTests(TestCase):
 
         self.assertEqual(blog.title, f"{self.user.slug}'s Blog")
         self.assertEqual(
-            blog_internal_domain.domain, f"{self.user.slug}.{settings.SITE_URL}"
+            blog_internal_domain.domain, f"{self.user.slug}.{settings.SITE_DOMAIN}"
         )
         self.assertEqual(
             blog.content, f"---\ntitle: {blog.title}\nband_domain: {blog.domain}\n---"
