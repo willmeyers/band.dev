@@ -1,0 +1,19 @@
+{% load static %} {% load markdown_filter %} {% load email_filter %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+  </head>
+  <body style="background-color: #f4f4f4; font-family: Arial, sans-serif; line-height: 1.6; padding: 20px">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 4px">
+      <tr>
+        <td align="center" style="padding: 10px; background-color: #121212; color: #ffffff; font-size: 24px">{{ title }}</td>
+      </tr>
+      <tr>
+        <td style="padding: 20px; font-size: 16px; color: #333">{{ body|md2html|nl2br|safe }}</td>
+      </tr>
+    </table>
+  </body>
+</html>

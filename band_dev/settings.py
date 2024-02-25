@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "authusers",
     "blogs",
     "posts",
+    "emails",
 ]
 
 MIDDLEWARE = [
