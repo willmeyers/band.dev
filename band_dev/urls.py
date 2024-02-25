@@ -33,6 +33,8 @@ authusers_urls = [
     path("login/", authusers_views.login_view, name="login"),
     path("signup/", authusers_views.signup_view, name="signup"),
     path("logout/", authusers_views.logout_view, name="logout"),
+    path("activate-account/", authusers_views.send_activate_account_email, name="send_activate_account_email"),
+    path("activate-account/<str:readable_user_id>/<str:token>/", authusers_views.activate_account_view, name="activate_account"),
     path(
         "dashboard/subscribers/",
         authusers_views.subscribers_dashboard_view,

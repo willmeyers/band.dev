@@ -2,7 +2,9 @@
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
 {% endblock %} {% block body %} {% include "_partials/navbar.html" %}
 <main>
-  {% include "authusers/_partials/dashboard_navbar.html" %}
+  {% if not user.is_verified %}
+  <div>You must verify your email address before you can upload any music. <a href="{% url 'authusers:send_activate_account_email'%}">Click here to verify.</a></div>
+  {% endif %} {% include "authusers/_partials/dashboard_navbar.html" %}
   <div>
     <form method="post" class="blog-dashboard-form">
       <div>

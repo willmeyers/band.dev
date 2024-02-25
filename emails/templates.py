@@ -1,7 +1,9 @@
 from typing_extensions import Optional
+from django.conf import settings
 from django.template import Template, Context
-
 from django.template.loader import render_to_string
+
+from band_dev.settings import SITE_URL_USE_SSL
 
 
 class EmailTemplate:
@@ -38,7 +40,7 @@ class EmailTemplate:
         return template_str
 
 
-verify_user_email_template = EmailTemplate(
+activate_account_email_template = EmailTemplate(
     title="Verify your Email",
-    body="Please click the link to verify you email and activate your account so you can start uploading.\n\n[activate account]({% url 'authusers:activate_account' readable_user_id=readable_user_id token=token %})"
+    body="Please click the link to activate your account so you can start uploading.\n\n[activate account]({{ site_url }}{% url 'authusers:activate_account' readable_user_id=readable_user_id token=token %})"
 )

@@ -2,12 +2,14 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 from band_dev.utils import flatten_querydict
 from authusers.services import (
     create_user,
     authenticate_user,
-    get_user,
+    get_user_by_id,
+    activate_user_account,
     update_user_settings,
 )
 from authusers.schemas import (
@@ -18,6 +20,7 @@ from authusers.schemas import (
 from blogs.schemas import UpdateBlogRequestBody
 from blogs.services import update_user_blog
 from posts.services import get_user_posts
+from emails.services import send_account_activation_email_to_user
 
 
 def signup_view(request):
@@ -53,6 +56,33 @@ def logout_view(request):
     logout(request=request)
 
     return redirect("/")
+
+
+@login_required
+def send_activate_account_email(request):
+    if request.user.is_verified:
+        return redirect(reverse("home"))
+
+    send_account_activation_email_to_user(user=request.user)
+
+    return render(
+        request=request,
+        template_name="authusers/send_activate_account_email.html",
+    )
+
+
+def activate_account_view(request, readable_user_id, token):
+    success = activate_user_account(readable_id=readable_user_id, token=token)
+    if success:
+        return redirect(reverse("authusers:dashboard"))
+
+    return render(
+        request=request,
+        template_name="authusers/activate_account.html",
+        context={
+            "success": success
+        }
+    )
 
 
 @login_required

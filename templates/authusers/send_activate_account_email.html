@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+{% endblock %} {% block body %} {% include "_partials/navbar.html" %}
+<main>
+  <h1>An email has been sent.</h1>
+  <!-- TODO (willmeyers): Update support link -->
+  <p>An email was sent to {{ request.user.email }} with a link used to verify your account. Please contact support if you did not receive any link.</p>
+</main>
+{% endblock %}
