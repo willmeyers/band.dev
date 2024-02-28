@@ -47,9 +47,11 @@ def create_post(
 
     post.save()
 
+    # TODO (willmeyers): Change this logic
     if len(request_files) > 12:
         raise ValueError("too many files")
 
+    # TODO (willmeyers): Ensure user is verified before uploading anything
     for request_file in request_files:
         create_upload_audio(post=post, request_body=request_file)
 

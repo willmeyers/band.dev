@@ -19,3 +19,8 @@ class BlogMarkdownMetadata(BaseModel):
 class UpdateBlogRequestBody(BaseModel):
     content: str
     navbar: Optional[str]
+
+
+class UpdateBlogCustomStylesRequestBody(BaseModel):
+    custom_styles: Optional[str] = None
+    custom_music_player_styles: Optional[str] = None

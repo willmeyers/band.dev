@@ -6,7 +6,7 @@ from pydantic import ValidationError
 
 from band_dev.markdown import markdown
 from authusers.models import AuthUser
-from blogs.schemas import UpdateBlogRequestBody, BlogMarkdownMetadata
+from blogs.schemas import UpdateBlogRequestBody, BlogMarkdownMetadata, UpdateBlogCustomStylesRequestBody
 from blogs.models import Blog
 from blogs.utils import get_default_blog_metadata
 
@@ -72,6 +72,18 @@ def update_user_blog(blog: Blog, request_body: UpdateBlogRequestBody) -> Blog:
     blog.content = blog_metadata_yaml_str + blog_stripped_content
 
     blog.save()
+
+    return blog
+
+
+def update_user_blog_custom_styles(blog: Blog, request_body: UpdateBlogCustomStylesRequestBody) -> Blog
+    # TODO (willmeyers): validate CSS? Strip specific attributes?
+
+    if request_body.custom_styles:
+        blog.custom_styles = request_body.custom_styles
+
+    if request_body.custom_music_player_styles:
+        blog.custom_music_player_styles = request_body.custom_music_player_styles
 
     return blog
 
