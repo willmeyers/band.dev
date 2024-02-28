@@ -12,7 +12,7 @@ class UpdateBlogCustomStylesTests(TestCase):
 
     def test_update_user_blog_custom_styles(self):
         request_body = UpdateBlogCustomStylesRequestBody(
-            custom_styles=":root { --background-color: red; }",
+            custom_styles=":root { --background: red; }",
         )
 
     def test_update_user_blog_custom_music_player_styles(self):

@@ -76,13 +76,17 @@ def update_user_blog(blog: Blog, request_body: UpdateBlogRequestBody) -> Blog:
     return blog
 
 
-def update_user_blog_custom_styles(blog: Blog, request_body: UpdateBlogCustomStylesRequestBody) -> Blog
+def update_user_blog_custom_styles(blog: Blog, request_body: UpdateBlogCustomStylesRequestBody) -> Blog:
     # TODO (willmeyers): validate CSS? Strip specific attributes?
 
-    if request_body.custom_styles:
+    if request_body.reset_to_default:
+        blog.custom_styles = None
+        blog.custom_music_player_styles = None
+
+    if request_body.custom_styles and not request_body.reset_to_default:
         blog.custom_styles = request_body.custom_styles
 
-    if request_body.custom_music_player_styles:
+    if request_body.custom_music_player_styles and not request_body.reset_to_default:
         blog.custom_music_player_styles = request_body.custom_music_player_styles
 
     return blog

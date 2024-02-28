@@ -6,13 +6,14 @@
     }
   }
 </style>
+{% block blog_head %}{% endblock %}
 {% endblock %} {% block body %}
 <header>
-  <h1 class="blog-title">{{ blog.title }}</h1>
+  <h1 class="site-title">{{ blog.title }}</h1>
   {% if blog.navbar %}
-  <nav class="blog-navbar">{{ blog.navbar|md2html|safe }}</nav>
+  <nav class="site-nav">{{ blog.navbar|md2html|safe }}</nav>
   {% endif %}
 </header>
-<main>{% block blog_main %} {{ blog.html|safe }} {% endblock %}</main>
+<main>{% block main %} {{ blog.html|safe }} {% endblock %}</main>
 <footer><small>Powered by <a href="/">band.dev</small></footer>
 {% endblock %}

@@ -61,7 +61,7 @@ authusers_urls = [
 ]
 
 blog_urls = [
-    path("posts/<str:link>", post_views.detail_view, name="view_post"),
+    path("posts/<str:link>", blog_views.blog_post_detail_view, name="view_post"),
     path("posts/", blog_views.blog_list_posts_view, name="list"),
     path("uploads/", blog_views.blog_list_uploads_view, name="list_uploads"),
     path("tags/", blog_views.blog_list_tags_view, name="list_tags"),

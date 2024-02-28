@@ -115,21 +115,3 @@ def edit_view(request, post_readable_id: str):
         template_name="posts/edit_post.html",
         context={"post": post, "post_uploads": post_uploads},
     )
-
-
-@require_request_blog()
-def detail_view(request, link: str):
-    post = get_blog_post_by_link(blog=request.blog, link=link)
-    audio_uploads = post.uploads.all()
-    uploads = []
-    for upload in audio_uploads:
-        url = default_storage.url(upload.file.name)
-        uploads.append(
-            {"id": upload.id, "content_type": upload.content_type, "url": url}
-        )
-
-    return render(
-        request=request,
-        template_name="posts/post_detail.html",
-        context={"blog": post.blog, "post": post, "audio_uploads": uploads},
-    )

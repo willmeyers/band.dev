@@ -1,0 +1,7 @@
+{% extends "blogs/base_blog.html" %} {% load static %} {% load markdown_filter %} {% block blog_head %}
+<script src="{% static 'js/audioplayer.js' %}"></script>
+{% endblock %} {% block main %}
+<h1>{{ post.title }}</h1>
+{% for upload in audio_uploads %}
+<audio-player trackname="test" filename="test" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"></audio-player>
+{% endfor %} {{ post.html|safe }} {% endblock %}

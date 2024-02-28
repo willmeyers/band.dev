@@ -1,32 +1,37 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block head %}
-<link rel="stylesheet" href="{% static 'css/editor.css' %}" />
-{% endblock %}
-
-{% block body %}
-{% include "_partials/navbar.html" %}
+{% extends "base.html" %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+{% endblock %} {% block body %} {% include "_partials/navbar.html" %}
 <main>
-    {% include "authusers/_partials/dashboard_navbar.html" %}
-    <div>
-        <form method="post" onsubmit="return copyContent()">
-            {% csrf_token %}
-            <div>
-                <label>Select an Existing Theme<label>
-            </div>
-            <button type="submit">Apply</button>
-        </form>
-        <form method="post" onsubmit="return copyContent()">
-            {% csrf_token %}
-            <div>
-                <label>Custom Styles</label>
-                <textarea id="custom-stylesheet" name="custom_stylesheet">{{ blog.custom_stylesheet }}</textarea>
-            </div>
-            <button type="submit">Publish</button>
-        </form>
-    </div>
-    <script>
-    </script>
+  {% include "authusers/_partials/dashboard_navbar.html" %}
+  <div>
+    <form method="post" class="blog-dashboard-form">
+      {% csrf_token %}
+      <div class="form-control">
+        <label>Select an Existing Theme</label>
+      </div>
+      <div>
+        <button type=" submit">Apply</button>
+      </div>
+    </form>
+    <hr />
+    <h2>Apply Custom Styles</h2>
+    <p>Overwrite styles of the default or selected theme of your site.</p>
+    <form method="post" class="blog-dashboard-form">
+      {% csrf_token %}
+      <div class="form-control">
+        <label for="custom_styles">Custom Styles</label>
+        <textarea id="custom_styles" name="custom_styles">{{ blog.custom_stylesheet }}</textarea>
+      </div>
+      <div class="form-control">
+        <label for="custom_styles">Custom Styles</label>
+        <textarea id="custom_styles" name="custom_styles">{{ blog.custom_stylesheet }}</textarea>
+      </div>
+      <div>
+        <button type="button">Preview</button>
+        <button type="submit">Publish</button>
+      </div>
+    </form>
+  </div>
+  <script></script>
 </main>
 {% endblock %}

@@ -22,5 +22,6 @@ class UpdateBlogRequestBody(BaseModel):
 
 
 class UpdateBlogCustomStylesRequestBody(BaseModel):
+    reset_to_default: Optional[bool] = False
     custom_styles: Optional[str] = None
     custom_music_player_styles: Optional[str] = None

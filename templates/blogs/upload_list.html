@@ -1,0 +1,19 @@
+{% extends "blogs/base_blog.html" %} {% load static %} {% load markdown_filter %} {% block blog_head %}
+<script src="{% static 'js/audioplayer.js' %}"></script>
+{% endblock %} {% block main %}
+<h2>Uploads</h2>
+{% if uploads %}
+<ul class="upload-list">
+  {% for upload in uploads %}
+  <li class="upload-item">
+    {% if upload.custom_music_player_styles %}
+    <audio-player host-style="{{ upload.custom_music_player_styles }}" trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
+    {% else %}
+    <audio-player trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<span>No uploads uploaded.</span>
+{% endif %} {% endblock %}
