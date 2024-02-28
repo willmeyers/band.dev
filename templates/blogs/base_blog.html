@@ -15,5 +15,5 @@
   {% endif %}
 </header>
 <main>{% block main %} {{ blog.html|safe }} {% endblock %}</main>
-<footer><small>Powered by <a href="/">band.dev</small></footer>
+<footer><small>Powered by <a href="{{ SITE_URL }}">band.dev</small></footer>
 {% endblock %}

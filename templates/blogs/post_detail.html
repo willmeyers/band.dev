@@ -2,6 +2,8 @@
 <script src="{% static 'js/audioplayer.js' %}"></script>
 {% endblock %} {% block main %}
 <h1>{{ post.title }}</h1>
-{% for upload in audio_uploads %}
-<audio-player trackname="test" filename="test" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"></audio-player>
-{% endfor %} {{ post.html|safe }} {% endblock %}
+{% for upload in audio_uploads %} {% if upload.custom_music_player_styles %}
+<audio-player host-style="{{ upload.custom_music_player_styles }}" trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
+{% else %}
+<audio-player trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
+{% endif %} {% endfor %} {{ post.html|safe }} {% endblock %}
