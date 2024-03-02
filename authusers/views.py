@@ -19,7 +19,7 @@ from authusers.schemas import (
 )
 from blogs.schemas import UpdateBlogRequestBody
 from blogs.services import update_user_blog
-from blogs.themes import DEFAULT_THEME, DEFAULT_MUSIC_PLAYER_THEME
+from blogs.themes import theme_map, music_player_theme_map, DEFAULT_THEME, DEFAULT_MUSIC_PLAYER_THEME
 from posts.services import get_user_posts
 from emails.services import send_account_activation_email_to_user
 
@@ -153,6 +153,26 @@ def post_uploads_dashboard_view(request):
 def theme_dashboard_view(request):
     user = request.user
     blog = request.user.blog
+
+    if request.method == "POST":
+        request_body = flatten_querydict(querydict=request.POST)
+        # TODO (willmeyers): add proper validation for both cases
+        if "apply-theme" in request_body:
+            try:
+                theme_name = request_body.get("theme_name")
+                theme = theme_map[theme_name]
+                music_player_theme = music_player_theme_map[theme_name]
+            except (KeyError, ValueError):
+                pass
+
+            blog.custom_styles = theme
+            blog.custom_music_player_styles = music_player_theme
+            blog.save()
+
+        if "publish-styles" in request_body:
+            blog.custom_styles = request_body.get("custom_styles")
+            blog.custom_music_player_styles = request_body.get("custom_music_player_styles")
+            blog.save()
 
     custom_styles = blog.custom_styles
     if not custom_styles:

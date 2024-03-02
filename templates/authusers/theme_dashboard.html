@@ -9,11 +9,12 @@
       <div class="form-control">
         <label>Select an Existing Theme</label>
         <div>
-          <input type="radio" />
+          <label><input type="radio" name="theme_name" value="default" /> default</label>
         </div>
       </div>
       <div>
-        <button type=" submit">Apply</button>
+        <!-- TODO (willmeyers): actually confirm if they user wants to reset styles... -->
+        <button type="submit" name="apply-theme" onclick="confirm('Applying a stock theme will reset any custom styles. Are you sure you want to do this?')">apply</button>
       </div>
     </form>
     <hr />
@@ -30,8 +31,8 @@
         <textarea id="custom_music_player_styles" name="custom_music_player_styles">{{ custom_music_player_styles }}</textarea>
       </div>
       <div>
-        <button type="button">Preview</button>
-        <button type="submit">Publish</button>
+        <button type="button">preview</button>
+        <button type="submit" name="publish-styles">publish</button>
       </div>
     </form>
   </div>
