@@ -1,4 +1,15 @@
 :root {
+  color-scheme: light dark;
+
+  --backgorund-color: #242424;
+  --foreground-color: #242424;
+  --highlight-color: #242424;
+  --link-color: blue;
+  --text-color: rgba(255, 255, 255, 0.87);
+}
+
+html {
+  box-sizing: border-box;
   font-family:
     system-ui,
     -apple-system,
@@ -12,30 +23,19 @@
     "Helvetica Neue",
     sans-serif;
   line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-html {
-  box-sizing: border-box;
-  /* 2 */
+  color: var(--text-color);
+  background-color: var(--backgorund-color);
 }
 
 *,
 ::after,
 ::before {
   box-sizing: inherit;
-  /* 1 */
-  text-decoration-thickness: 0.2rem;
-  /* 2 */
 }
 
 body {
@@ -44,7 +44,7 @@ body {
 }
 
 a {
-  color: blue;
+  color: var(--link-color);
   text-decoration: none;
 }
 
@@ -83,21 +83,13 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"] {
   display: inline-block;
-  /* 1 */
   vertical-align: middle;
-  /* 1 */
   font-weight: normal;
-  /* 1 */
   background: white;
-  /* 2 */
   color: black;
-  /* 2 */
   border: 0.2px solid #121212;
-  /* 2 */
   border-radius: 2px;
-  /* 2 */
   cursor: pointer;
-  /* 3 */
   font-size: 0.8rem;
 }
 
@@ -218,7 +210,12 @@ td input[type="text"] {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color-scheme: light dark;
+
+    --backgorund-color: #ffffff;
+    --foreground-color: #242424;
+    --highlight-color: #242424;
+    --link-color: blue;
+    --text-color: #213547;
   }
 }

@@ -19,6 +19,7 @@ from authusers.schemas import (
 )
 from blogs.schemas import UpdateBlogRequestBody
 from blogs.services import update_user_blog
+from blogs.themes import DEFAULT_THEME, DEFAULT_MUSIC_PLAYER_THEME
 from posts.services import get_user_posts
 from emails.services import send_account_activation_email_to_user
 
@@ -150,12 +151,25 @@ def post_uploads_dashboard_view(request):
 
 @login_required
 def theme_dashboard_view(request):
+    user = request.user
+    blog = request.user.blog
+
+    custom_styles = blog.custom_styles
+    if not custom_styles:
+        custom_styles = DEFAULT_THEME
+
+    custom_music_player_styles = blog.custom_music_player_styles
+    if not custom_music_player_styles:
+        custom_music_player_styles = DEFAULT_MUSIC_PLAYER_THEME
+
     return render(
         request=request,
         template_name="authusers/theme_dashboard.html",
         context={
-            "user": request.user,
-            "blog": request.user.blog,
+            "user": user,
+            "blog": blog,
+            "custom_styles": custom_styles,
+            "custom_music_player_styles": custom_music_player_styles
         },
     )
 
@@ -163,6 +177,7 @@ def theme_dashboard_view(request):
 @login_required
 def settings_dashboard_view(request):
     user = request.user
+    blog = request.user.blog
 
     if request.method == "POST":
         query_dict = {k: request.POST.get(k) for k in request.POST}
@@ -175,6 +190,6 @@ def settings_dashboard_view(request):
         template_name="authusers/settings_dashboard.html",
         context={
             "user": user,
-            "blog": user.blog,
+            "blog": blog,
         },
     )

@@ -1,0 +1,1 @@
+from .default import DEFAULT_THEME, DEFAULT_MUSIC_PLAYER_THEME

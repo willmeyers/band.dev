@@ -8,6 +8,9 @@
       {% csrf_token %}
       <div class="form-control">
         <label>Select an Existing Theme</label>
+        <div>
+          <input type="radio" />
+        </div>
       </div>
       <div>
         <button type=" submit">Apply</button>
@@ -20,11 +23,11 @@
       {% csrf_token %}
       <div class="form-control">
         <label for="custom_styles">Custom Styles</label>
-        <textarea id="custom_styles" name="custom_styles">{{ blog.custom_stylesheet }}</textarea>
+        <textarea id="custom_styles" name="custom_styles">{{ custom_styles }}</textarea>
       </div>
       <div class="form-control">
-        <label for="custom_styles">Custom Styles</label>
-        <textarea id="custom_styles" name="custom_styles">{{ blog.custom_stylesheet }}</textarea>
+        <label for="custom_music_player_styles">Custom Music Player Styles</label>
+        <textarea id="custom_music_player_styles" name="custom_music_player_styles">{{ custom_music_player_styles }}</textarea>
       </div>
       <div>
         <button type="button">Preview</button>
