@@ -48,7 +48,6 @@ def create_content_tag_filter_from_match(content_filter_match: str) -> Optional[
     return query
 
 
-
 # TODO (willmeyers): Ensure safe inserting of html from tags. Test XSS and other vulns
 def render_post(post: Post) -> str:
     def replace_match_with_rendered_template(match):
@@ -74,20 +73,18 @@ def render_post(post: Post) -> str:
             queryset=Post.objects.filter(final_query)
         )
 
-    # Select the Django's default templating engine. It's potentially worth investigating if writing a custom engine
-    # is worthwhile... That can be a TODO down the line.
     template_engine = engines["django"]
 
-    document = markdown.convert(post.content)
+    posts_pattern = r"\{\{\s*(posts|uploads|post_uploads)\s*([^}]*)\}\}"
+    document = re.sub(posts_pattern, replace_match_with_rendered_template, post.content)
+
+    document = markdown.convert(document)
     metadata = markdown.Meta
 
     context = {
         "blog_title": post.blog.title,
         "post_title": post.title,
     }
-
-    posts_pattern = r"\{\{\s*(posts|uploads|post_uploads)\s*([^}]*)\}\}"
-    document = re.sub(posts_pattern, replace_match_with_rendered_template, document)
 
     document = template_engine.from_string(document).render(context=context)
 
