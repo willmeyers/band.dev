@@ -51,7 +51,6 @@ class AudioPlayer extends HTMLElement {
     }
 
     #duration-label {
-      font-family: monospace;
       font-size: 0.75rem;
       grid-column: 6 / 6;
       grid-row: 1 / 1;
