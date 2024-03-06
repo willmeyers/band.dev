@@ -1,9 +1,12 @@
 DEFAULT_THEME = """:root {
   color-scheme: light dark;
 
-  --backgorund-color: #242424;
-  --text-color: rgba(255, 255, 255, 0.87);
+  --background-color: #ffffff;
   --link-color: blue;
+  --text-color: #213547;
+
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 html {
@@ -26,7 +29,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
-  background-color: var(--backgorund-color);
+  background-color: var(--background-color);
 }
 
 *,
@@ -42,22 +45,20 @@ body {
 }
 
 a {
-  color: blue;
+  color: var(--link-color);
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     color-scheme: light dark;
 
-    --backgorund-color: #ffffff;
-    --foreground-color: #242424;
-    --highlight-color: #242424;
-    --link-color: blue;
+    --background-color: #ffffff;
     --text-color: #213547;
+    --link-color: blue;
 
     color: var(--text-color);
-    background-color: var(--backgorund-color);
+    background-color: var(--background-color);
   }
 }"""
 

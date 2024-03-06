@@ -1,10 +1,6 @@
 {% extends "base.html" %} {% load static %} {% load markdown_filter %} {% block head %}
 <style>
-  {
-      {
-      blog.custom_styles
-    }
-  }
+  {{ blog.custom_styles }}
 </style>
 {% block blog_head %}{% endblock %} {% endblock %} {% block body %}
 <header>
