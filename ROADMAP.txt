@@ -22,6 +22,7 @@ Up Next:
 - [ ] discovery ranking algorithm
 - [ ] upgraded or premium accounts
 - [ ] uniform design and product branding
+- [ ] more stock, custom themes to select from
 
 Down the Line:
 - [ ] band shops (some sort of integration with either stripe or shopify)
