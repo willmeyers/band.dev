@@ -34,3 +34,14 @@ class CreatePostTests(TestCase):
 
         self.assertEqual(post.user, self.user)
         self.assertEqual(post.blog, self.blog)
+
+    def test_create_post_with_content_tags(self):
+        create_post_request_body = CreatePostRequestBody(
+            user_id=self.user.id,
+            blog_id=self.blog.id,
+            content="---\ntitle: Hello World\n---\n# Hello World\n\nThis post is titled {{ post_title }}. It was posted on {{ blog_title }}.\n\n{{ post_uploads }}",
+        )
+
+        post = create_post(request_body=create_post_request_body, request_files=[])
+
+        print(post.html)
