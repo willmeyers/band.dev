@@ -15,7 +15,7 @@ from posts.schemas import (
     UpdatePostRequestBody,
     AudioUploadRequestBody,
 )
-from posts.utils import generate_post_link_from_title
+from posts.utils import generate_post_link_from_title, render_post
 
 
 @transaction.atomic
@@ -34,7 +34,6 @@ def create_post(
     )
 
     post.content = request_body.content
-    post.html = document
 
     post.title = metadata.get("title")
     post.link = metadata.get("link", generate_post_link_from_title(title=post.title))
@@ -45,11 +44,13 @@ def create_post(
     post.is_discoverable = metadata.get("is_discoverable", True)
     post.is_page = metadata.get("is_page", False)
 
-    post.save()
+    post.html = render_post(post=post)
 
     # TODO (willmeyers): Change this logic
     if len(request_files) > 12:
         raise ValueError("too many files")
+
+    post.save()
 
     # TODO (willmeyers): Ensure user is verified before uploading anything
     for request_file in request_files:
@@ -81,6 +82,7 @@ def update_post(
     post.is_page = metadata.get("is_page", False)
 
     post.content = post.get_content_metadata_yaml_str() + post.get_stripped_content()
+    post.html = render_post(post=post)
 
     post.save()
 

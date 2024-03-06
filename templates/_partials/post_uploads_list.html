@@ -1,0 +1,11 @@
+<ul class="uploads-list">
+  {% for upload in uploads %}
+  <li class="upload-item">
+    {% if upload.custom_music_player_styles %}
+    <audio-player host-style="{{ upload.custom_music_player_styles }}" trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
+    {% else %}
+    <audio-player trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>

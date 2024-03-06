@@ -1,9 +1,11 @@
-{% extends "blogs/base_blog.html" %} {% load static %} {% load markdown_filter %} {% block blog_head %}
-<script src="{% static 'js/audioplayer.js' %}"></script>
-{% endblock %} {% block main %}
+{% extends "blogs/base_blog.html" %}
+{% load static %}
+{% load markdown_filter %}
+
+{% block blog_head %}
+    <script src="{% static 'js/audioplayer.js' %}"></script>
+{% endblock %}
+{% block main %}
 <h1>{{ post.title }}</h1>
-{% for upload in audio_uploads %} {% if upload.custom_music_player_styles %}
-<audio-player host-style="{{ upload.custom_music_player_styles }}" trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
-{% else %}
-<audio-player trackname="{{ upload.name }}" filename="{{ upload.filename }}" src="{{ upload.url }}" type="{{ upload.content_type }}" audio-id="{{ upload.id }}"> </audio-player>
-{% endif %} {% endfor %} {{ post.html|safe }} {% endblock %}
+{{ post.html|safe }}
+{% endblock %}
