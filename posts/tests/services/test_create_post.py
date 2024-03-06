@@ -11,7 +11,7 @@ from posts.utils import generate_post_link_from_title
 class CreatePostTests(TestCase):
     def setUp(self) -> None:
         self.user = create_fake_user()
-        self.blog = create_user_blog(user=self.user)
+        self.blog = self.user.blog
 
     def test_create_post_without_files(self):
         create_post_request_body = CreatePostRequestBody(

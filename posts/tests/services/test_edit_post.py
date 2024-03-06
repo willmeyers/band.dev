@@ -1,7 +1,6 @@
 from django.test import TestCase
 
 from authusers.tests.factories import create_fake_user
-from blogs.services import create_user_blog
 from posts.schemas import CreatePostRequestBody, UpdatePostRequestBody
 from posts.models import Post
 from posts.services import create_post, update_post
@@ -11,7 +10,7 @@ from posts.utils import generate_post_link_from_title
 class CreatePostTests(TestCase):
     def setUp(self) -> None:
         self.user = create_fake_user()
-        self.blog = create_user_blog(user=self.user)
+        self.blog = self.user.blog
         self.post = create_post(
             request_body=CreatePostRequestBody(
                 content="---\ntitle: Hello World\n---",

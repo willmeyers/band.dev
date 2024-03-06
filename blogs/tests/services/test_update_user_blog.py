@@ -8,7 +8,7 @@ from blogs.services import create_user_blog, update_user_blog
 class UpdateBlogTests(TestCase):
     def setUp(self) -> None:
         self.user = create_fake_user()
-        self.blog = create_user_blog(user=self.user)
+        self.blog = self.user.blog
 
     def test_update_blog(self):
         update_blog_request_body = UpdateBlogRequestBody(
