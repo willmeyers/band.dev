@@ -1,8 +1,8 @@
 Currently In Progress:
-- [ ] custom styles for blogs and audio player
 - [ ] custom tags for inserting posts and audio uploads into blog content and or blog posts
 
 Completed:
+- [x] custom styles for blogs and audio player
 - [x] email verification on user signup
 - [x] user signups and blog creation
 - [x] update navbar and content
