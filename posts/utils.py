@@ -35,7 +35,8 @@ def create_content_templatetag_filter_from_match(content_filter_match: str) -> O
 
     match key:
         case "tags":
-            query = Q(**{"tags__conatins": [v.strip() for v in value.split(",")]})
+            values = [v.strip() for v in value.split(",")]
+            query = Q(**{"tags__overlap": values})
         case _:
             query = None
 
@@ -48,23 +49,33 @@ def render_post(post: Post) -> str:
         """
         Callback function used for sub'ing matches
         """
-        kind = match.group(0)
-        kind = kind.replace("{{", "").replace("}}", "").strip().split("|")[0]
-        filters = match.group(1)
+        match = match.group(0)
+        kind = match.replace("{{", "").replace("}}", "").strip().split("|")[0]
+        filters = match.replace("{{", "").replace("}}", "").strip().split("|")[1:]
+
         final_query = Q(user=post.user)
+        order_by = False
+
         try:
-            filters = match.group(1)[1:].split("|")
             for f in filters:
+                if f.startswith("order_by"):
+                    order_by = f.split(":")[1]
+                    continue
                 query = create_content_templatetag_filter_from_match(content_filter_match=f)
-                final_query |= query if query else final_query
+                final_query &= query if query else final_query
         except IndexError as err:
             print(err)
             pass
 
+
+        content_queryset = Post.objects.filter(final_query)
+        if order_by:
+            content_queryset = content_queryset.order_by(order_by)
+
         return render_content_templatetag(
             context_key=kind,
             template_name=f"_partials/{kind}_list.html",
-            queryset=Post.objects.filter(final_query)
+            queryset=content_queryset
         )
 
     template_engine = engines["django"]
