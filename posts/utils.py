@@ -11,37 +11,31 @@ from band_dev.markdown import markdown
 from posts.models import Post, PostUpload
 
 
-VALID_CONTENT_TAG_FILTERS = ["limit", "order_by"]
-
-
-VALID_POST_CONTENT_TAG_FILTERS = ["tags"]
-
-
-VALID_UPLOAD_CONTENT_TAG_FILTERS = ["tags"]
-
+VALID_CONTENT_TEMPLATETAG_FILTERS = []
 
 def generate_post_link_from_title(title: str) -> str:
     return slugify(title)
 
 
-def render_content_tag(context_key: str, template_name: str, queryset: QuerySet) -> str:
+def strip_and_parse_tags(tags: str) -> list[str]:
+    return [tag.strip() for tag in tags.split(",")]
+
+
+def render_content_templatetag(context_key: str, template_name: str, queryset: QuerySet) -> str:
     return render_to_string(template_name=template_name, context={context_key: queryset})
 
 
-def create_content_tag_filter_from_match(content_filter_match: str) -> Optional[Q]:
+def create_content_templatetag_filter_from_match(content_filter_match: str) -> Optional[Q]:
     try:
         key, value = content_filter_match.split(":")
     except ValueError:
-        return None
-
-    if key not in VALID_CONTENT_TAG_FILTERS:
         return None
 
     query = None
 
     match key:
         case "tags":
-            query = Q(**{"tags__in": value})
+            query = Q(**{"tags__conatins": [v.strip() for v in value.split(",")]})
         case _:
             query = None
 
@@ -55,19 +49,19 @@ def render_post(post: Post) -> str:
         Callback function used for sub'ing matches
         """
         kind = match.group(0)
-        kind = kind.replace("{{", "").replace("}}", "").strip()
+        kind = kind.replace("{{", "").replace("}}", "").strip().split("|")[0]
         filters = match.group(1)
         final_query = Q(user=post.user)
         try:
             filters = match.group(1)[1:].split("|")
             for f in filters:
-                query = create_content_tag_filter_from_match(content_filter_match=f)
+                query = create_content_templatetag_filter_from_match(content_filter_match=f)
                 final_query |= query if query else final_query
         except IndexError as err:
             print(err)
             pass
 
-        return render_content_tag(
+        return render_content_templatetag(
             context_key=kind,
             template_name=f"_partials/{kind}_list.html",
             queryset=Post.objects.filter(final_query)

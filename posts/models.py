@@ -3,6 +3,7 @@ import re
 from django.db import models
 from django.utils.functional import cached_property
 from django.core.files.storage import default_storage
+from django.contrib.postgres.fields import ArrayField
 
 from band_dev.models import BaseModel
 from band_dev.markdown import markdown
@@ -20,6 +21,7 @@ class Post(BaseModel):
     is_page = models.BooleanField(default=False)
     is_discoverable = models.BooleanField(default=True)
     is_draft = models.BooleanField(default=False)
+    tags = ArrayField(models.CharField(max_length=64), size=16, null=True)
     user = models.ForeignKey(
         "authusers.AuthUser", on_delete=models.CASCADE, related_name="posts"
     )

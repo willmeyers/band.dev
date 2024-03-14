@@ -15,7 +15,7 @@ from posts.schemas import (
     UpdatePostRequestBody,
     AudioUploadRequestBody,
 )
-from posts.utils import generate_post_link_from_title, render_post
+from posts.utils import generate_post_link_from_title, render_post, strip_and_parse_tags
 
 
 @transaction.atomic
@@ -39,7 +39,7 @@ def create_post(
     post.link = metadata.get("link", generate_post_link_from_title(title=post.title))
     post.meta_image = metadata.get("meta_image")
     post.meta_description = metadata.get("meta_description")
-    post.tags = metadata.get("tags")
+    post.tags = strip_and_parse_tags(metadata.get("tags", ""))
     post.class_name = metadata.get("class_name")
     post.is_discoverable = metadata.get("is_discoverable", True)
     post.is_page = metadata.get("is_page", False)
@@ -76,12 +76,12 @@ def update_post(
     post.link = metadata.get("link", generate_post_link_from_title(title=post.title))
     post.meta_image = metadata.get("meta_image")
     post.meta_description = metadata.get("meta_description")
-    post.tags = metadata.get("tags")
+    post.tags = strip_and_parse_tags(metadata.get("tags", ""))
     post.class_name = metadata.get("class_name")
     post.is_discoverable = metadata.get("is_discoverable", True)
     post.is_page = metadata.get("is_page", False)
 
-    post.content = post.get_content_metadata_yaml_str() + post.get_stripped_content()
+    post.content = post.get_content_metadata_yaml_str() + "\n\n" + post.get_stripped_content()
     post.html = render_post(post=post)
 
     post.save()
@@ -142,3 +142,11 @@ def list_post_uploads() -> QuerySet[PostUpload]:
     uploads = PostUpload.objects.filter()
 
     return uploads
+
+
+@transaction.atomic
+def delete_post(readable_id: str) -> bool:
+    post = get_post_by_id(readable_id=readable_id)
+    post.delete()
+
+    return True

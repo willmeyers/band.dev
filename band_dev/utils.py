@@ -1,4 +1,6 @@
+import re
 import random
+
 import base32_crockford as base64
 
 

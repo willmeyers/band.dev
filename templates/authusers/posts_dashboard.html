@@ -29,8 +29,11 @@
             <a href="{% url 'authusers:edit_post' post_readable_id=post.readable_id %}">
               <button>edit</button>
             </a>
-            <a href="{% url 'blogs:view_post' link=post.link %}">
+            <a href="{{  blog.href }}/posts/{{ post.link }}">
               <button>view</button>
+            </a>
+            <a href="{% url 'authusers:delete_post' post_readable_id=post.readable_id %}">
+              <button class="button-danger">delete</button>
             </a>
           </td>
         </tr>

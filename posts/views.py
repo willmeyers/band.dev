@@ -1,5 +1,6 @@
 from django.urls import reverse
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
 from pydantic import ValidationError
@@ -16,6 +17,7 @@ from posts.services import (
     update_post,
     get_post_by_id,
     get_blog_post_by_link,
+    delete_post
 )
 
 
@@ -101,13 +103,8 @@ def edit_view(request, post_readable_id: str):
             is_draft=is_draft,
         )
 
-        if is_draft:
-            return redirect(
-                reverse("posts:edit", kwargs={"post_readable_id": post.readable_id})
-            )
-
         return redirect(
-            reverse("posts:detail", kwargs={"post_readable_id": post.readable_id})
+            reverse("authusers:edit_post", kwargs={"post_readable_id": post.readable_id})
         )
 
     return render(
@@ -115,3 +112,11 @@ def edit_view(request, post_readable_id: str):
         template_name="posts/edit_post.html",
         context={"post": post, "post_uploads": post_uploads},
     )
+
+
+@require_http_methods(["GET"])
+@login_required
+def delete_view(request, post_readable_id: str):
+    delete_post(readable_id=post_readable_id)
+
+    return redirect(reverse("authusers:posts_dashboard"))

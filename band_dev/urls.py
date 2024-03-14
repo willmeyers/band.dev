@@ -58,6 +58,7 @@ authusers_urls = [
     # Posts
     path("posts/new/", post_views.create_view, name="create_post"),
     path("posts/<str:post_readable_id>/edit/", post_views.edit_view, name="edit_post"),
+    path("posts/<str:post_readable_id>/delete/", post_views.delete_view, name="delete_post"),
 ]
 
 blog_urls = [
