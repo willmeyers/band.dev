@@ -11,7 +11,8 @@ from band_dev.markdown import markdown
 from posts.models import Post, PostUpload
 
 
-VALID_CONTENT_TEMPLATETAG_FILTERS = []
+VALID_CONTENT_TEMPLATETAG_FILTERS = ["order_by", "tags"]
+
 
 def generate_post_link_from_title(title: str) -> str:
     return slugify(title)
@@ -29,6 +30,9 @@ def create_content_templatetag_filter_from_match(content_filter_match: str) -> O
     try:
         key, value = content_filter_match.split(":")
     except ValueError:
+        return None
+
+    if key not in VALID_CONTENT_TEMPLATETAG_FILTERS:
         return None
 
     query = None
@@ -68,9 +72,15 @@ def render_post(post: Post) -> str:
             pass
 
 
-        content_queryset = Post.objects.filter(final_query)
+        model = Post
+        if kind == "post_uploads" or kind == "uploads":
+            model = PostUpload
+
+        content_queryset = model.objects.filter(final_query)
         if order_by:
             content_queryset = content_queryset.order_by(order_by)
+
+        print(kind, content_queryset)
 
         return render_content_templatetag(
             context_key=kind,
